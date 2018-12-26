@@ -4,12 +4,16 @@ pipeline {
         stage('Delete dev branch') {
             steps {
                 echo 'Deleting dev branch...'
-                bat 'git status'
+                bat 'git push -d origin develop'
+                bat 'git branch -D develop'
             }
         }
         stage('Rebuild dev branch') {
             steps {
                 echo 'Rebuilding dev branch...'
+                bat 'git checkout staging'
+                bat 'git checkout -b develop'
+                bat 'git push'
             }
         }
     }
