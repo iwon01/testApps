@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    stages {
+        stage('Delete dev branch') {
+            steps {
+                echo 'Deleting dev branch...'
+                bat 'git status'
+            }
+        }
+        stage('Rebuild dev branch') {
+            steps {
+                echo 'Rebuilding dev branch...'
+            }
+        }
+    }
+}
