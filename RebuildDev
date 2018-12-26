@@ -6,7 +6,7 @@ node {
             bat 'git push -d origin develop'
             bat 'git branch -D develop'
         } catch (ex) {
-            echo 'Error occurred'
+            echo ex.toString()
         } finally {
             echo 'Dev branch deleted.'
         }
@@ -16,7 +16,7 @@ node {
             echo 'Rebuilding dev branch...'
             bat 'git checkout staging'
             bat 'git checkout -b develop'
-            bat 'git push'
+            bat 'git push --set-upstream origin develop'
         } finally {
             echo 'Dev branch recreated.'
         }
