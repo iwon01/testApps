@@ -2,14 +2,14 @@ pipeline {
     agent any
     stages {
         stage('Delete dev branch') {
-            steps {
-                try {
-                    echo 'Deleting dev branch...'
-                    bat 'git push -d origin develop'
-                    bat 'git branch -D develop'
-                } finally {
-                    echo 'Dev branch handled.'
-                }
+            try {
+                echo 'Deleting dev branch...'
+                bat 'git push -d origin develop'
+                bat 'git branch -D develop'
+            } catch (ex) {
+                echo 'Error occurred'
+            } finally {
+                echo 'Dev branch handled.'
             }
         }
         stage('Rebuild dev branch') {
