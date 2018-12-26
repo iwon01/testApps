@@ -18,12 +18,12 @@ node {
             echo ex.toString()
         } finally {
             echo 'Dev branch local deleted.'
+            sleep 5s
         }
     }
     stage('Rebuild dev branch') {
         try {
             echo 'Rebuilding dev branch...'
-            sleep 10s
             bat 'git checkout staging'
             bat 'git checkout -b develop'
             bat 'git push --set-upstream origin develop'
