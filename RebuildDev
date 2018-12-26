@@ -3,10 +3,13 @@ pipeline {
     stages {
         stage('Delete dev branch') {
             steps {
-                echo 'Deleting dev branch...'
-                bat 'make check || true'
-                bat 'git push -d origin develop'
-                bat 'git branch -D develop'
+                try {
+                    echo 'Deleting dev branch...'
+                    bat 'git push -d origin develop'
+                    bat 'git branch -D develop'
+                } finally {
+                    echo 'Dev branch handled.'
+                }
             }
         }
         stage('Rebuild dev branch') {
