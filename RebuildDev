@@ -1,14 +1,23 @@
 node {
 
-    stage('Delete dev branch') {
+    stage('Delete dev branch remote') {
         try {
-            echo 'Deleting dev branch...'
-            bat 'git branch -D develop'
+            echo 'Deleting remote dev branch...'
             bat 'git push -d origin develop'
         } catch (ex) {
             echo ex.toString()
         } finally {
-            echo 'Dev branch deleted.'
+            echo 'Dev branch remote deleted.'
+        }
+    }
+    stage('Delete dev branch local') {
+        try {
+            echo 'Deleting remote dev branch...'
+            bat 'git branch -D develop'
+        } catch (ex) {
+            echo ex.toString()
+        } finally {
+            echo 'Dev branch local deleted.'
         }
     }
     stage('Rebuild dev branch') {
