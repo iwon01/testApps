@@ -1,4 +1,4 @@
-pipeline {
+node {
     agent any
     stages {
         stage('Delete dev branch') {
@@ -9,15 +9,17 @@ pipeline {
             } catch (ex) {
                 echo 'Error occurred'
             } finally {
-                echo 'Dev branch handled.'
+                echo 'Dev branch deleted.'
             }
         }
         stage('Rebuild dev branch') {
-            steps {
+            try {
                 echo 'Rebuilding dev branch...'
                 bat 'git checkout staging'
                 bat 'git checkout -b develop'
                 bat 'git push'
+            } finally {
+                echo 'Dev branch recreated.'
             }
         }
     }
