@@ -1,0 +1,29 @@
+node {
+    stage('Clean workspace') {
+        cleanWs()
+    }
+    stage('Checkout from SCM') {
+        echo 'Checking out from SCM'
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/iwon01/testApps.git']]])
+
+    }
+    stage('Delete dev branch remote') {
+        try {
+            echo 'Deleting remote dev branch...'
+            bat 'git push -d origin develop'
+        } catch (ex) {
+            echo ex.toString()
+        } finally {
+            echo 'Dev branch remote deleted.'
+        }
+    }
+    stage('Rebuild dev branch') {
+        echo 'Rebuilding dev branch...'
+        bat 'git checkout staging'
+        bat 'git checkout -b develop'
+        bat 'git push --set-upstream origin develop'
+    }
+    stage('Clean workspace') {
+        cleanWs()
+    }
+}
