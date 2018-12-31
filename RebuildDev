@@ -1,6 +1,6 @@
 node {
     parameters {
-        string(name: 'gitUrl', defaultValue: 'https://github.com/iwon01/testApps.git', description: 'Git url of project'
+        string(name: 'gitUrl', defaultValue: 'https://github.com/iwon01/testApps.git', description: 'Git url of project')
     }
     stage('Clean workspace') {
         cleanWs()
@@ -16,8 +16,6 @@ node {
             bat 'git push -d origin develop'
         } catch (ex) {
             echo ex.toString()
-        } finally {
-            echo 'Dev branch remote deleted.'
         }
     }
     stage('Rebuild dev branch') {
